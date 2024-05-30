@@ -6,6 +6,7 @@ import loginRouter from './routes/login.js';
 import updateUserRouter from './routes/update.js';
 import cartRouter from './routes/cart.js';
 import errorHandlerMiddleware from './middlewares/errorHandler.js'
+import orderRouter from './routes/order.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -17,8 +18,9 @@ app.use(express.json());
 app.use('/menu', menuRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
-app.use('/update', updateUserRouter);
+app.use('/update-account', updateUserRouter);
 app.use('/cart', cartRouter);
+app.use('/order', orderRouter);
 
 // Starta server
 app.listen(PORT, (req, res) => {

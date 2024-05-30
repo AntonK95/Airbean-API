@@ -10,7 +10,7 @@ router.post('/', async (req, res, next) => {
         
         if (error) return res.status(400).send(error.details[0].message);
 
-        const { username, password } = req.body;
+        const { username, password, email } = req.body;
 
         const existingUser = await database.findOne({ username });
         if (existingUser) return res.status(400).json({ message: 'Användarnamnet är redan taget' });

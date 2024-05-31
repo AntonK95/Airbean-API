@@ -5,6 +5,8 @@ import registerRouter from './routes/register.js';
 import loginRouter from './routes/login.js';
 import updateUserRouter from './routes/update.js';
 import cartRouter from './routes/cart.js';
+import info from './routes/info.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -18,6 +20,8 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/update', updateUserRouter);
 app.use('/cart', cartRouter);
+app.use('/info', info);
+
 
 // Starta server
 app.listen(PORT, (req, res) => {

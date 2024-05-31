@@ -13,7 +13,6 @@ router.post('/create', async (req, res, next) => {
     try {
 
         const { userId } = req.body;
-        // const userId = 'sqQLcWWuC4lrGg27'; // Hårdkodad _id endast för att testa
 
         // Hämta varukorg för användare
         const cartItems = await db.find({ userId });
@@ -28,17 +27,20 @@ router.post('/create', async (req, res, next) => {
             title: item.title,
             desc: item.desc,
             price: item.price,
+            quantity: item.quantity ? Number(item.quantity) : 1
         }));
         
-        // const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
         
         // Logga inkommande begäran för debug
         console.log('Incoming request body:', req.body);
+        console.log('items:', items);
+        console.log('total:', total);
         // Skapa en ny order med data från förfrågan
         const newOrder = {
             userId,
             items,
-            // total,
+            total,
             // status: 'pending'
         };
 

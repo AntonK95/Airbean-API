@@ -5,6 +5,7 @@ import registerRouter from './routes/register.js';
 import loginRouter from './routes/login.js';
 import updateUserRouter from './routes/update.js';
 import cartRouter from './routes/cart.js';
+import errorHandlerMiddleware from './middlewares/errorHandler.js'
 import info from './routes/info.js';
 
 
@@ -27,3 +28,5 @@ app.use('/info', info);
 app.listen(PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+app.use(errorHandlerMiddleware)

@@ -7,12 +7,18 @@ import { orderDB } from "../server.js";
 // db = cart
 // database = users
 
+const guestUserId = 'guest-user';
+
 const router = Router();
 
-router.post('/create', async (req, res, next) => {
+router.post('/create/:userId', async (req, res, next) => {
     try {
 
-        const { userId } = req.body;
+        let { userId } = req.params;
+
+        if (userId === 'guest') {
+            userId = guestUserId;
+        }
 
         // Hämta varukorg för användare
         const cartItems = await db.find({ userId });

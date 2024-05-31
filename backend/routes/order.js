@@ -13,7 +13,7 @@ router.post('/create', async (req, res, next) => {
         // const userId = 'sqQLcWWuC4lrGg27'; // Hårdkodad _id endast för att testa
 
         // Hämta varukorg för användare
-        const cartItems = await database.find({ userId });
+        const cartItems = await db.find({ userId });
 
         if(!cartItems.length) {
             return res.status(400).json({ message: 'Cart is empty' });

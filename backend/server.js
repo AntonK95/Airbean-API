@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 
 export const database = nedb.create({ filename: 'users.db', autoload: true });
 export const db = nedb.create({ filename: 'cart.db', autoload: true });
+export const orderDB = nedb.create({ filename: 'order.db', autoload: true });
 
 app.use(express.json());
 app.use('/menu', menuRouter);

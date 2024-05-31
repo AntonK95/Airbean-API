@@ -10,19 +10,6 @@ const router = Router();
 const getProductFromMenu = id => products.find(item => item.id === Number(id));
 const getProductFromCart = async id => await db.findOne({ _id: id });
 
-// const calculateTotalPrice = async () => {
-//     const products = await db.find({});
-//     let totalPrice = 0;
-//     for (const product of products) {
-//         totalPrice += product.price * product.quantity;
-//     }
-//     return totalPrice;
-// };
-// router.get('/total-price', async (req, res) => {
-//     const totalPrice = await calculateTotalPrice();
-//     res.json({ totalPrice });
-// });
-
 router.post('/add/:id', async (req, res) => {
     const { id } = req.params;
     const { userId } = req.body;

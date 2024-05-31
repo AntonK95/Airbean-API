@@ -13,13 +13,15 @@ const getProductFromCart = async id => await db.findOne({ _id: id });
 
 router.post('/add/:id', timeStampOrder, async (req, res) => {
     const { id } = req.params;
+    const { userId } = req.body;
+
     const product = getProductFromMenu(id);
 
     if (!product) {
         return res.status(404).json({ error: 'Product not found in menu' });
     }
 
-    const productInCart = await getProductFromCart(id);
+    const productInCart = await getProductFromCart(userId, id);
     if (productInCart) {
         return res.status(400).json({ error: 'Product already in cart' });
     }
@@ -34,36 +36,51 @@ router.post('/add/:id', timeStampOrder, async (req, res) => {
     //     await db.insert({ _id: id, title: product.title, desc: product.desc, price: product.price, quantity: 1 });
     // }
 
-    await db.insert({
-        _id: id,
-        title: product.title,
-        desc: product.desc,
-        price: product.price,
-        timeStamp: req.body.order.timeStamp
-    });
+    await db.insert({ userId, title: product.title, desc: product.desc, price: product.price });
     res.json({ message: 'Product added to cart' });
 });
 
 router.delete('/remove/:id', async (req, res) => {
     const { id } = req.params;
+    const { userId } = req.body;
+
     const product = getProductFromMenu(id);
 
     if (!product) {
         return res.status(404).json({ error: 'Product not found in menu' });
     }
 
-    const productInCart = await getProductFromCart(id);
+    const productInCart = await getProductFromCart(userId, id);
     if (!productInCart) {
         return res.status(404).json({ error: 'Product not found in cart' });
     }
 
-    await db.remove({ _id: id });
+    await db.remove({ userId, _id });
     res.json({ message: 'Product removed from cart' });
 });
 
 router.get('/', async (req, res) => {
-    const cart = await db.find({});
+    const { userId } = req.query;
+
+    console.log('Hämta cart för userId:', userId);
+
+    const cart = await db.find({ userId });
+    console.log('Cart items:', cart);
     res.json(cart);
+});
+
+router.delete('/clear', async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        // Ta bort alla objekt från varukorgen som matchar användarens id
+        await db.remove({ userId }, { multi: true });
+
+        res.json({ message: 'Cart cleared successfully' });
+    } catch (error) {
+        console.error('Error clearing cart:', error);
+        res.status(500).json({ error: 'An error occurred while clearing the cart' });
+    }
 });
 
 export default router;

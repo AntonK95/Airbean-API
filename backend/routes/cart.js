@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { readFileSync } from 'fs';
 import { db } from '../server.js';
-import timeStampOrder from '../middlewares/timeStampOrder.js';
 
 const data = JSON.parse(readFileSync('./data/menu.json', 'utf8'));
 const products = data.menu;
@@ -11,7 +10,7 @@ const router = Router();
 const getProductFromMenu = id => products.find(item => item.id === Number(id));
 const getProductFromCart = async id => await db.findOne({ _id: id });
 
-router.post('/add/:id', timeStampOrder, async (req, res) => {
+router.post('/add/:id', async (req, res) => {
     const { id } = req.params;
     const { userId } = req.body;
 

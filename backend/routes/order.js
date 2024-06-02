@@ -3,13 +3,14 @@ import orderSchema from "../models/orderModel.js";
 // import { database } from "../server.js";
 import { db } from "../server.js";
 import { orderDB } from "../server.js";
+import timeStampOrder from "../middlewares/timeStampOrder.js";
 
 // db = cart
 // database = users
 
 const router = Router();
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', timeStampOrder, async (req, res, next) => {
     try {
 
         const { userId } = req.body;
@@ -27,7 +28,7 @@ router.post('/create', async (req, res, next) => {
             productId: item._id,
             title: item.title,
             desc: item.desc,
-            price: item.price,
+            price: item.price
         }));
         
         // const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -38,6 +39,7 @@ router.post('/create', async (req, res, next) => {
         const newOrder = {
             userId,
             items,
+            timeStampOrder,
             // total,
             // status: 'pending'
         };

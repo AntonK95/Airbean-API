@@ -10,6 +10,7 @@ router.get('/:userId', async (req, res) => {
     try {
         const orders = await orderDB.find({ userId: userId }).sort({ timeStamp: -1 }).limit(1);
         const order = orders[0];
+        // -1 gör att orders med senaste timeStamp hamnar först.
 
         if (!order) {
             return res.status(404).send({ error: 'No orders found for user' });

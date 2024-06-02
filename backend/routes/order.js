@@ -11,6 +11,7 @@ import timeStampOrder from "../middlewares/timeStampOrder.js";
 const router = Router();
 
 router.post('/create', timeStampOrder, async (req, res, next) => {
+    console.log('Request body after timeStampOrder:', req.body);
     try {
 
         const { userId } = req.body;
@@ -19,27 +20,27 @@ router.post('/create', timeStampOrder, async (req, res, next) => {
         // Hämta varukorg för användare
         const cartItems = await db.find({ userId });
 
-        if(!cartItems.length) {
+        if (!cartItems.length) {
             return res.status(400).json({ message: 'Cart is empty' });
         }
 
-        
+
         const items = cartItems.map(item => ({
             productId: item._id,
             title: item.title,
             desc: item.desc,
             price: item.price
         }));
-        
+
         // const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        
+
         // Logga inkommande begäran för debug
         console.log('Incoming request body:', req.body);
         // Skapa en ny order med data från förfrågan
         const newOrder = {
             userId,
             items,
-            timeStampOrder,
+            timeStamp: req.body.timeStamp,
             // total,
             // status: 'pending'
         };

@@ -12,7 +12,7 @@ const guestUserId = 'guest-user';
 
 const router = Router();
 
-router.post('/create/:userId', timeStampOrder, async (req, res, next) => {
+router.post('/create/:userId', async (req, res, next) => {
     console.log('Request body after timeStampOrder:', req.body);
     try {
 
@@ -48,7 +48,7 @@ router.post('/create/:userId', timeStampOrder, async (req, res, next) => {
         const newOrder = {
             userId,
             items,
-            timeStamp: req.body.timeStamp,
+            time: getTimeStamp(),
             // total,
             total,
             // status: 'pending'

@@ -9,7 +9,6 @@ import errorHandlerMiddleware from './middlewares/errorHandler.js'
 import orderRouter from './routes/order.js';
 import info from './routes/info.js';
 import confirmationRouter from './routes/confirmation.js';
-
 import logger from './middlewares/logger.js';
 
 const app = express();
@@ -31,9 +30,9 @@ app.use('/order', orderRouter);
 app.use('/info', info);
 app.use('/confirmation', confirmationRouter);
 
+app.use(errorHandlerMiddleware);
+
 // Starta server
 app.listen(PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-app.use(errorHandlerMiddleware)

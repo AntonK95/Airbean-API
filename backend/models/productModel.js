@@ -1,4 +1,4 @@
-// Får inte denna till att fungera som den skall..
+// Får inte denna till att fungera som jag vill..
 // import Joi from "joi";
 
 // const productSchema = Joi.object({

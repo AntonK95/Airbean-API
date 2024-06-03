@@ -16,6 +16,8 @@ const orderSchema = Joi.object({
     ).required()
 });
 
+// I detta stycke så tar vi emot productSchema för att använda en separas Schema model som ligger i productModel.js. 
+// Tyvärr får jag det inte att fungera.. Fungerande/alternativ lösning ovan
 // const orderSchema = Joi.object({
 //     userId: Joi.string().required(),
 //     total: Joi.number().required(),

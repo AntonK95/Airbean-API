@@ -5,7 +5,7 @@ import validate from "../middlewares/validate.js";
 
 const router = Router();
 
-router.put('/', async (req, res, next) => {
+router.put('/', validate(updateUserSchema), async (req, res, next) => {
     try {
         const { error } = updateUserSchema.validate(req.body);
 

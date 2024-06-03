@@ -19,7 +19,7 @@ router.post('/add/:userId/:id', async (req, res) => {
     if (userId === 'guest') {
         userId = guestUserId;
     } else {
-        const user = await usersDatabase.findOne({ _id: userId });
+        const user = await usersDatabase.findOne({ userId });
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }

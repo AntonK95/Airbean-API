@@ -2,31 +2,40 @@
 
 ## HTTP anrop
 
-## GET menu - http://localhost:8080/menu
+### GET menu - http://localhost:8080/menu
 
-## POST register account - http://localhost:8080/register
-## JSON body:
-## {
-##	"username": "username",
-##	"password": "password",
-##	"email": "email@mail.com"
-## }
+### POST register account - http://localhost:8080/register
+### JSON body:
+### {
+###	"username": "username",
+###	"password": "password",
+###	"email": "email@mail.com"
+### }
 
-## POST login - http://localhost:8080/login
-## JSON body:
-## {
-##	"username": "username",
-##	"password": "password"
-## }
+### POST login - http://localhost:8080/login
+### JSON body:
+### {
+###	"username": "username",
+###	"password": "password"
+### }
 
-## POST add to cart by product id - http://localhost:8080/cart/add/:userID/:id
+### PUT update account info - http://localhost:8080/update-account
+### JSON body:
+### {
+### "userId": "userId", (required)
+###	"username": "username", (skrivs in body om man vill ändra det)
+###	"password": "password", (skrivs in body om man vill ändra det)
+###	"email": "email@mail.com" (skrivs in body om man vill ändra det)
+### }
 
-## DELETE from cart by product id - http://localhost:8080/cart/remove/:userID/:id
+### POST add to cart by product id - http://localhost:8080/cart/add/:userID/:id
 
-## GET cart by userId - http://localhost:8080/cart?userId=:userId
+### DELETE from cart by product id - http://localhost:8080/cart/remove/:userID/:id
 
-## DELETE whole cart - http://localhost:8080/cart/clear/:userId
+### GET cart by userId - http://localhost:8080/cart?userId=:userId
 
-## POST create order - http://localhost:8080/order/create/:userId
+### DELETE whole cart - http://localhost:8080/cart/clear/:userId
 
-## Om man har inget konto och vill inte skapa det - används userID 'guest'
+### POST create order - http://localhost:8080/order/create/:userId
+
+### Om man har inget konto och vill inte skapa det - används userID 'guest'

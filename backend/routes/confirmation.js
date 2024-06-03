@@ -4,7 +4,7 @@ import { orderDB } from '../server.js';
 
 const router = Router();
 
-router.get('/confirmation/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     const { userId } = req.params;
 
     try {

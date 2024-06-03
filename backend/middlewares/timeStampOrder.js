@@ -1,3 +1,5 @@
+
+//denna timeStamp är mer internationell med ISO sträng och används mer där internationella tidsgränser förekommer.
 // const getTimeStamp = () => {
 //     const date = new Date();
 //     const cetDate = new Date(date.toLocaleString("en-GB", { timeZone: "Europe/Stockholm" }));
@@ -6,6 +8,7 @@
 // };
 
 
+//denna variant blir lättare att läsa och kanske bättre för att räkna ut tid kvar till leverens.
 //skapar en timeSTamp
 const getTimeStamp = () => {
     const date = new Date();

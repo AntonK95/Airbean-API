@@ -48,7 +48,7 @@ router.post('/create/:userId', async (req, res, next) => {
         const newOrder = {
             userId,
             items,
-            time: getTimeStamp(),
+            timeStampOrder,
             // total,
             total,
             // status: 'pending'

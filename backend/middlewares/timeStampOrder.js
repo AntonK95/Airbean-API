@@ -1,6 +1,7 @@
 
 //denna timeStamp är mer internationell med ISO sträng och används mer där internationella tidsgränser förekommer.
 // const getTimeStamp = () => {
+//     console.log('getTimeStamp log: ', getTimeStamp());
 //     const date = new Date();
 //     const cetDate = new Date(date.toLocaleString("en-GB", { timeZone: "Europe/Stockholm" }));
 //     console.log("Generated Timestamp:", cetDate.toISOString());
@@ -36,6 +37,7 @@ const timeStampOrder = (req, res, next) => {
         req.body.order = {};
     }
     req.body.timeStamp = getTimeStamp();
+    console.log('getTimeStamp log i timeStampOrder: ', getTimeStamp());
     next();
 };;
 

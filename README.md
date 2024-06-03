@@ -38,4 +38,6 @@
 
 ### POST create order - http://localhost:8080/order/create/:userId
 
+### GET order confirmation - http://localhost:8080/confirmation/:userId
+
 ### Om man har inget konto och vill inte skapa det - används userID 'guest'

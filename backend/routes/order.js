@@ -3,6 +3,7 @@ import orderSchema from "../models/orderModel.js";
 // import { database } from "../server.js";
 import { db } from "../server.js";
 import { orderDB } from "../server.js";
+import getTimeStamp from "../utilities/timeStamp.js";
 
 // db = cart
 // database = users
@@ -23,11 +24,11 @@ router.post('/create/:userId', async (req, res, next) => {
         // Hämta varukorg för användare
         const cartItems = await db.find({ userId });
 
-        if(!cartItems.length) {
+        if (!cartItems.length) {
             return res.status(400).json({ message: 'Cart is empty' });
         }
 
-        
+
         const items = cartItems.map(item => ({
             productId: item._id,
             title: item.title,
@@ -46,6 +47,8 @@ router.post('/create/:userId', async (req, res, next) => {
         const newOrder = {
             userId,
             items,
+            timeStamp: getTimeStamp(),
+            // total,
             total,
             // status: 'pending'
         };

@@ -8,6 +8,7 @@ import cartRouter from './routes/cart.js';
 import errorHandlerMiddleware from './middlewares/errorHandler.js'
 import orderRouter from './routes/order.js';
 import info from './routes/info.js';
+import confirmationRouter from './routes/confirmation.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -24,6 +25,7 @@ app.use('/update-account', updateUserRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/info', info);
+app.use('/confirmation', confirmationRouter);
 
 app.use(errorHandlerMiddleware);
 

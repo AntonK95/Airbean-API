@@ -1,10 +1,1 @@
-{"userId":"4665","productId":"2","title":"Caffè Doppio","desc":"Bryggd på månadens bönor.","price":49,"_id":"9UhNafgxuzA6vSBB"}
-{"userId":"4665","productId":"5","title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"tHBa3qzlu6yVT2Rz"}
-{"$$deleted":true,"_id":"9UhNafgxuzA6vSBB"}
-{"$$deleted":true,"_id":"tHBa3qzlu6yVT2Rz"}
-{"userId":"4665","productId":"5","title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"UCtCM5KoFydClHZQ"}
-{"userId":"4665","productId":"5","title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"izgpj8C0wbDzGVa0"}
-{"userId":"4665","productId":"5","title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"KULRwb4cmTcX5cRk"}
-{"$$deleted":true,"_id":"KULRwb4cmTcX5cRk"}
-{"$$deleted":true,"_id":"UCtCM5KoFydClHZQ"}
-{"$$deleted":true,"_id":"izgpj8C0wbDzGVa0"}
+{"title":"Bryggkaffe","desc":"Bryggd på månadens bönor.","price":39,"_id":"6oAN6SImMidA3Q0J"}

@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import loginSchema from '../models/loginModel.js';
 import { database } from '../server.js';
+import validate from '../middlewares/validate.js';
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
+router.post('/', validate(loginSchema), async (req, res, next) => {
     try {
         const { error } = loginSchema.validate(req.body);
         

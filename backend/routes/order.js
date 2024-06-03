@@ -1,11 +1,7 @@
 import { Router } from "express";
 import orderSchema from "../models/orderModel.js";
-// import { database } from "../server.js";
 import { db } from "../server.js";
 import { orderDB } from "../server.js";
-
-// db = cart
-// database = users
 
 const guestUserId = 'guest-user';
 
@@ -39,7 +35,7 @@ router.post('/create/:userId', async (req, res, next) => {
         const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
         
         // Logga inkommande begäran för debug
-        console.log('Incoming request body:', req.body);
+        console.log('Incoming request body order.js:', req.body);
         console.log('items:', items);
         console.log('total:', total);
         // Skapa en ny order med data från förfrågan
@@ -50,6 +46,7 @@ router.post('/create/:userId', async (req, res, next) => {
             // status: 'pending'
         };
 
+        // Här validerar vi newOrder efter att ha skapat objektet
         const { error } = orderSchema.validate(newOrder);
         if (error) {
             console.log('Validation error', error.details[0].message);

@@ -1,4 +1,5 @@
 import Joi from 'joi';
+// import productSchema from './productModel.js';
 
 const orderSchema = Joi.object({
     userId: Joi.string().required(),
@@ -13,5 +14,12 @@ const orderSchema = Joi.object({
         })
     ).required()
 });
+
+// const orderSchema = Joi.object({
+//     userId: Joi.string().required(),
+//     total: Joi.number().required(),
+//     items: Joi.array().items(productSchema
+//     ).required()
+// });
 
 export default orderSchema;

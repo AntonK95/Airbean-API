@@ -3,7 +3,7 @@ import orderSchema from "../models/orderModel.js";
 // import { database } from "../server.js";
 import { db } from "../server.js";
 import { orderDB } from "../server.js";
-import timeStampOrder from "../middlewares/timeStampOrder.js";
+import getTimeStamp from "../utilities/timeStamp.js";
 
 // db = cart
 // database = users
@@ -13,7 +13,6 @@ const guestUserId = 'guest-user';
 const router = Router();
 
 router.post('/create/:userId', async (req, res, next) => {
-    console.log('Request body after timeStampOrder:', req.body);
     try {
 
         let { userId } = req.params;
@@ -48,7 +47,7 @@ router.post('/create/:userId', async (req, res, next) => {
         const newOrder = {
             userId,
             items,
-            timeStampOrder,
+            timeStamp: getTimeStamp(),
             // total,
             total,
             // status: 'pending'

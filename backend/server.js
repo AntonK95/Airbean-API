@@ -27,9 +27,9 @@ app.use('/order', orderRouter);
 app.use('/info', info);
 app.use('/confirmation', confirmationRouter);
 
+app.use(errorHandlerMiddleware);
+
 // Starta server
 app.listen(PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-app.use(errorHandlerMiddleware)

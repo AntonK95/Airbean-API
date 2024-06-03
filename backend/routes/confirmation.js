@@ -15,34 +15,19 @@ router.get('/:userId', async (req, res) => {
             return res.status(404).send({ error: 'No orders found for user' });
         }
 
-        // Parse timestamp into date and time parts
+        // Parse timestamp till datum och tid delar
         const timeStamp = order.timeStamp;
-        console.log('Original timeStamp:', timeStamp);
         const [datePart, timePart] = timeStamp.split(' ');
-        console.log('Date part:', datePart);
-        console.log('Time part:', timePart);
-
-        // Parse date part into year, month, and day
         const [year, month, day] = datePart.split('-');
-        console.log('Year:', year);
-        console.log('Month:', month);
-        console.log('Day:', day);
-
-        // Parse time part into hours and minutes
         const [hours, minutes] = timePart.split(':');
-        console.log('Hours:', hours);
-        console.log('Minutes:', minutes);
 
-        // Construct orderPlacedTime
+        // Generera tid för när en order skapas
         const orderPlacedTime = new Date(year, month - 1, day, hours, minutes).getTime();
-        console.log('orderPlacedTime:', orderPlacedTime);
 
-        // Calculate time elapsed and max delivery time
+        // Räkna ut leverenstid eller om levererad
         const now = Date.now();
         const timeElapsed = now - orderPlacedTime;
-        console.log('timeElapsed:', timeElapsed);
         const maxDeliveryTime = parseFloat(20 * 60 * 1000); // 20 minutes in milliseconds
-        console.log('maxDeliveryTime:', maxDeliveryTime);
 
         // Check if time values are valid
         if (isNaN(maxDeliveryTime) || isNaN(timeElapsed)) {

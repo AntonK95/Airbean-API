@@ -44,9 +44,7 @@ router.post('/create/:userId', async (req, res, next) => {
             userId,
             items,
             timeStamp: getTimeStamp(),
-            // total,
             total,
-            // status: 'pending'
         };
 
         // Här validerar vi newOrder efter att ha skapat objektet

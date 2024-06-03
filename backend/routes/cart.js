@@ -31,16 +31,6 @@ router.post('/add/:userId/:id', async (req, res) => {
         return res.status(404).json({ error: 'Product not found in menu' });
     }
 
-    // Om vi vill lägga till samma produkt flera gånger
-    // const existingProduct = await getProductFromCart(id);
-    // if (existingProduct) {
-        
-    //     existingProduct.quantity = existingProduct.quantity ? existingProduct.quantity + 1 : 1;
-    //     await db.update({ _id: id }, existingProduct);
-    // } else {
-    //     await db.insert({ _id: id, title: product.title, desc: product.desc, price: product.price, quantity: 1 });
-    // }
-
     await db.insert({ userId, productId: id, title: product.title, desc: product.desc, price: product.price });
     res.json({ message: 'Product added to cart', product });
 });

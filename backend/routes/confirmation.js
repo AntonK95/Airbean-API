@@ -16,7 +16,7 @@ router.get('/confirmation/:userId', async (req, res) => {
             return res.status(404).send({ error: 'No orders found for user' });
         }
 
-        //parse till datumobjekt
+        //parse till datumobjekt: year-month-day, hours:mins.
         const timeStamp = order.timeStamp;
         const [datePart, timePart] = timeStamp.split('-');
         const [day, month, year] = datePart.split('-');
@@ -31,7 +31,7 @@ router.get('/confirmation/:userId', async (req, res) => {
             // Ordern är levererad
             return res.send({ status: 'delivered', message: 'Your order has been delivered.' });
         } else {
-            // tid kvar till leverens
+            // tid kvar till leverens avrundade uppåt.
             const timeLeft = maxDeliveryTime - timeElapsed;
             return res.send({ status: 'in progress', timeLeft: `${Math.ceil(timeLeft / 1000 / 60)} minutes left for delivery` });
         }

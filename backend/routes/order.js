@@ -8,14 +8,19 @@ import timeStampOrder from "../middlewares/timeStampOrder.js";
 // db = cart
 // database = users
 
+const guestUserId = 'guest-user';
+
 const router = Router();
 
-router.post('/create', timeStampOrder, async (req, res, next) => {
+router.post('/create/:userId', timeStampOrder, async (req, res, next) => {
     console.log('Request body after timeStampOrder:', req.body);
     try {
 
-        const { userId } = req.body;
-        // const userId = 'sqQLcWWuC4lrGg27'; // Hårdkodad _id endast för att testa
+        let { userId } = req.params;
+
+        if (userId === 'guest') {
+            userId = guestUserId;
+        }
 
         // Hämta varukorg för användare
         const cartItems = await db.find({ userId });
@@ -29,19 +34,23 @@ router.post('/create', timeStampOrder, async (req, res, next) => {
             productId: item._id,
             title: item.title,
             desc: item.desc,
-            price: item.price
+            price: item.price,
+            quantity: item.quantity ? Number(item.quantity) : 1
         }));
-
-        // const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
+        
+        const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        
         // Logga inkommande begäran för debug
         console.log('Incoming request body:', req.body);
+        console.log('items:', items);
+        console.log('total:', total);
         // Skapa en ny order med data från förfrågan
         const newOrder = {
             userId,
             items,
             timeStamp: req.body.timeStamp,
             // total,
+            total,
             // status: 'pending'
         };
 

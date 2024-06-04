@@ -4,10 +4,16 @@ import { orderDB } from '../server.js';
 
 const router = Router();
 
-router.get('/:userId', async (req, res) => {
-    const { userId } = req.params;
+const guestUserId = 'guest';
 
+router.get('/:userId', async (req, res) => {
     try {
+        let { userId } = req.params;
+
+        if (userId === 'guest') {
+            userId = guestUserId;
+        }
+
         const orders = await orderDB.find({ userId: userId }).sort({ timeStamp: -1 });
         const order = orders[0];
 

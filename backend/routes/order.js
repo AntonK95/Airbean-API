@@ -4,7 +4,7 @@ import { db, orderNumberDB } from "../server.js";
 import { orderDB } from "../server.js";
 import getTimeStamp from "../utilities/timeStamp.js";
 
-const guestUserId = 'guest-user';
+const guestUserId = 'guest';
 
 const router = Router();
 

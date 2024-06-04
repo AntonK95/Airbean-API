@@ -4,6 +4,8 @@
 
 ### GET menu - http://localhost:8080/menu
 
+### GET info (about coffee) - http://localhost:8080/info
+
 ### POST register account - http://localhost:8080/register
 ### JSON body:
 ### {

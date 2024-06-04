@@ -2,18 +2,19 @@ import { Router } from 'express';
 import { readFileSync } from 'fs';
 import { db } from '../server.js';
 import Datastore from 'nedb-promises';
+import { validateUrl, urlSchema} from '../middlewares/validateUrl.js';
 
 const data = JSON.parse(readFileSync('./data/menu.json', 'utf8'));
 const products = data.menu;
 
 const router = Router();
 const usersDatabase = Datastore.create('users.db');
-const guestUserId = 'guest-user';
+const guestUserId = 'guest';
 
 const getProductFromMenu = id => products.find(item => item.id === Number(id));
 const getProductFromCart = async (userId, productId) => await db.findOne({ userId, productId });
 
-router.post('/add/:userId/:id', async (req, res) => {
+router.post('/add/:userId/:id', validateUrl(urlSchema), async (req, res) => {
     let { userId, id } = req.params;
 
     if (userId === 'guest') {
@@ -35,7 +36,7 @@ router.post('/add/:userId/:id', async (req, res) => {
     res.json({ message: 'Product added to cart', product });
 });
 
-router.delete('/remove/:userId/:id', async (req, res) => {
+router.delete('/remove/:userId/:id', validateUrl(urlSchema), async (req, res) => {
     let { userId, id } = req.params;
 
     if (userId === 'guest') {

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import orderSchema from "../models/orderModel.js";
-import { db } from "../server.js";
+import { db, orderNumberDB } from "../server.js";
 import { orderDB } from "../server.js";
 import getTimeStamp from "../utilities/timeStamp.js";
 
@@ -39,12 +39,34 @@ router.post('/create/:userId', async (req, res, next) => {
         console.log('Incoming request body order.js:', req.body);
         console.log('items:', items);
         console.log('total:', total);
+
+        async function getNextOrderNumber() {
+            try {
+                const updatedDoc = await orderNumberDB.update({}, { $inc: { getNextOrderNumber: 1 } }, { returnUpdatedDocs: true });
+            
+                if(updatedDoc) {
+                    return updatedDoc.getNextOrderNumber;
+
+                } else {
+                    const newDoc = { getNextOrderNumber: 1 };
+                    await orderNumberDB.insert(newDoc);
+                    return newDoc.getNextOrderNumber;
+                }
+            
+            } catch(error) {
+                console.log(err, 'Error fetching next order number');
+            }
+        };
+        
+        const orderNumber = await getNextOrderNumber();
+
         // Skapa en ny order med data från förfrågan
         const newOrder = {
             userId,
             items,
             timeStamp: getTimeStamp(),
             total,
+            orderNumber
         };
 
         // Här validerar vi newOrder efter att ha skapat objektet

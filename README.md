@@ -4,6 +4,8 @@
 
 ### GET menu - http://localhost:8080/menu
 
+### GET info - http://localhost:8080/info
+
 ### POST register account - http://localhost:8080/register
 ### JSON body:
 ### {
@@ -40,4 +42,6 @@
 
 ### GET order confirmation - http://localhost:8080/confirmation/:userId
 
-### Om man har inget konto och vill inte skapa det - används userID 'guest'
+### GET order history - http://localhost:8080/order-history/:userId
+
+### Om man inte har ett konto och inte vill skapa ett - används 'guest' istället för userId

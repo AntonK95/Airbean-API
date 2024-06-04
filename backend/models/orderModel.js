@@ -3,6 +3,7 @@ import Joi from 'joi';
 
 const orderSchema = Joi.object({
     userId: Joi.string().required(),
+    orderNumber: Joi.number().required(),
     total: Joi.number().required(),
     timeStamp: Joi.string().required(),
     items: Joi.array().items(

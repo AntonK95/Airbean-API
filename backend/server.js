@@ -10,6 +10,7 @@ import orderRouter from './routes/order.js';
 import info from './routes/info.js';
 import confirmationRouter from './routes/confirmation.js';
 import logger from './middlewares/logger.js';
+import orderHistoryRouter from './routes/orderhistory.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,6 +30,7 @@ app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 app.use('/info', info);
 app.use('/confirmation', confirmationRouter);
+app.use('/order-history', orderHistoryRouter);
 
 app.use(errorHandlerMiddleware);
 

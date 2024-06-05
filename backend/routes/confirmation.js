@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import { Router } from 'express';
 import { orderDB } from '../server.js';
+import { applyDiscount } from '../utilities/discount.js';
 
 const router = Router();
 
@@ -21,16 +22,16 @@ router.get('/:userId', async (req, res) => {
             return res.status(404).send({ error: 'No orders found for user' });
         }
 
-        // Parse timestamp till datum och tid delar
+        // Parse timestamp into date and time parts
         const timeStamp = order.timeStamp;
         const [datePart, timePart] = timeStamp.split(' ');
         const [year, month, day] = datePart.split('-');
         const [hours, minutes] = timePart.split(':');
 
-        // Generera tid för när en order skapas
+        // Generate time for when the order was placed
         const orderPlacedTime = new Date(year, month - 1, day, hours, minutes).getTime();
 
-        // Räkna ut leverenstid eller om levererad
+        // Calculate delivery time or if delivered
         const now = Date.now();
         const timeElapsed = now - orderPlacedTime;
         const maxDeliveryTime = parseFloat(20 * 60 * 1000); // 20 minutes in milliseconds
@@ -41,15 +42,30 @@ router.get('/:userId', async (req, res) => {
         }
 
         // Determine order status based on time elapsed
+        let orderStatus;
+        let timeLeft = 0;
         if (timeElapsed > maxDeliveryTime) {
             // Order has been delivered
-            return res.send({ status: 'delivered', message: 'Your order has been delivered.' });
+            orderStatus = 'delivered';
         } else {
             // Calculate time left for delivery
-            const timeLeft = Math.max(maxDeliveryTime - timeElapsed, 0);
-            console.log('timeLeft:', timeLeft);
-            return res.send({ status: 'in progress', timeLeft: `${Math.ceil(timeLeft / (60 * 1000))} minutes left for delivery` });
+            timeLeft = Math.max(maxDeliveryTime - timeElapsed, 0);
+            orderStatus = 'in progress';
         }
+
+        // Calculate the discounted total
+        const discountedTotal = applyDiscount(order.total, userId, guestUserId);
+
+        // Prepare response
+        const response = {
+            status: orderStatus,
+            total: order.total,
+            discountedTotal: discountedTotal,
+            message: orderStatus === 'delivered' ? 'Your order has been delivered.' : `Your order is in progress. ${Math.ceil(timeLeft / (60 * 1000))} minutes left for delivery`,
+            timeLeft: orderStatus === 'in progress' ? `${Math.ceil(timeLeft / (60 * 1000))} minutes` : undefined
+        };
+
+        return res.send(response);
 
     } catch (error) {
         res.status(500).send({ error: 'An error occurred while retrieving the order' });
